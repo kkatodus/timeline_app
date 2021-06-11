@@ -1,0 +1,12 @@
+#backend
+venv_backend/
+__pycache__/
+db.sqlite3
+*.pyc
+photos/
+migrations/
+media/
+*.DS_Store
+*.bat
+.env
+
