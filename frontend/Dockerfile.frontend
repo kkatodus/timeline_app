@@ -1,6 +1,11 @@
 FROM node:alpine
 WORKDIR /frontend
-COPY /src /frontend/src
-COPY ["package.json", "package-lock.json", "./"]
-RUN npm install
+ENV PATH frontend/node_modules/.bin:$PATH
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm install 
+RUN npm install react-scripts@latest
+COPY ./public ./public
+COPY ./src ./src
 EXPOSE 3000
+CMD [ "npm", "start"]

@@ -9,4 +9,5 @@ media/
 *.DS_Store
 *.bat
 .env
+data/
 
