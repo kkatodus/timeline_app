@@ -1,17 +1,22 @@
-import logo from './logo.svg';
 import React, { Component } from 'react';
 import './App.css';
+import {Route, Switch, BrowserRouter as Router} from "react-router-dom";
+
+import Nav from './components/Navbar';
+import CreateForm from './pages/CreateForm';
+import DiaryList from './pages/DiaryList';
 
 class App extends Component {
-  componentDidMount(){
-    fetch("http://localhost:8000/diaries")
-    .then(data=>data.json())
-    .then(data=>console.log(data))
-      
-  }
+
   render() { 
     return ( 
-      <h1>Hi this is something</h1>
+      <Router>
+        <Nav />
+        <Switch>
+          <Route path="/" exact component={DiaryList}/>
+          <Route path="/create_diary" exact component={CreateForm}/>
+        </Switch>
+      </Router>
      );
   }
 }
