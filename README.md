@@ -1,23 +1,38 @@
 # Getting Started
 
-To start the frontend and backend in one command, cd into the project and run the following. (You will need docker running on your machine)
+## Start the backend
+
+First, to get the backend of this project started, cd into the root directory of this project and run the following command:
 
 ```bash
-docker-compose up --build
+docker-compose up --build db backend
 ```
 
-If you do not want to build but just run the containers run
+Then log into the backend docker container and run the two commands below:
 
 ```bash
-docker-compose up
+python manage.py makemigrations api
+python manage.py migrate api
 ```
 
-You can also run individual containers by adding the container name. For example
+This should initiate your database with the models we are using.
+
+(Optionally you can create a superuser to log into the admin site of django. To do this, run the command below in the backend docker container)
 
 ```bash
-docker-compose up --build frontend
+python manage.py createsuperuser
 ```
 
+Now the backend should be ready to accept connections from the react frontend
+
+## Start the frontend
+
+As port 8000 in the backend docker container is mapped to the port 8000 of your local machine, you do not have to use docker to activate the frontend of this project.
+Simply cd into the frontend directory of this project and run the following commmands.
+
 ```bash
-docker-compose up frontend
+npm install
+npm start
 ```
+
+This should start your react frontend at port 3000
