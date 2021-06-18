@@ -52,3 +52,13 @@ class DiaryDetailView(DiaryListView):
             return Response(serialized.data)
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+    def delete(self, request, uuid):
+        try:
+            diary = self.queryset.objects.get(id=uuid)
+            photos = diary.photos.all()
+            photos.delete()
+            diary.delete()
+            return Response(status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
