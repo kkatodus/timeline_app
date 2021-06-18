@@ -6,6 +6,8 @@ import Nav from './components/Navbar';
 import CreateForm from './pages/CreateForm';
 import DiaryList from './pages/DiaryList';
 
+
+
 class App extends Component {
 
   render() { 

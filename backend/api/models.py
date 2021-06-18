@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.utils import timezone
 # Create your models here.
@@ -14,6 +16,7 @@ class Photo(models.Model):
         return str(self.image.url)
 
 class Diary(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     photos = models.ManyToManyField(Photo, blank=True)
     content = models.CharField(max_length=100)
     created = models.DateTimeField(auto_created=True, default=timezone.now)
