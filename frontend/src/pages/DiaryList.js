@@ -23,6 +23,7 @@ class DiaryList extends Component {
     }
     render() {
         const {diaries} = this.state;
+
         return ( 
             <div>
                 <h1>Diary List</h1>

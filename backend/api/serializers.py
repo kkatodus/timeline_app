@@ -7,8 +7,8 @@ class PhotoSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class DiarySerializer(serializers.ModelSerializer):
-    photos = serializers.StringRelatedField(many=True)
-
+    # photos = serializers.StringRelatedField(many=True)
+    photos = PhotoSerializer(many=True, read_only=True)
     class Meta:
         model = Diary
         fields = "__all__"

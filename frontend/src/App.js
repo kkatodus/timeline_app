@@ -17,8 +17,8 @@ class App extends Component {
         <Switch>
           <Route path="/" exact component={DiaryList}/>
           <Route path="/create_diary" exact component={CreateForm}/>
-          <Route path="/edit_diary/:uuid" component={DiaryEditForm}/>
-          <Route path="/diary_detail/:uuid" component={DiaryDetail}/>
+          <Route path="/diary_detail/:uuid" exact component={DiaryDetail}/>
+          <Route path="/diary_detail/edit_diary/:uuid" exact component={DiaryEditForm}/>
         </Switch>
       </Router>
      );

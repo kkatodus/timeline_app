@@ -33,7 +33,7 @@ class DiaryListView(APIView):
         diary_instance = Diary.create(content=diary_content)
         diary_instance.save()
         try:
-            for idx,image in enumerate(images):
+            for idx, image in enumerate(images):
                 photo_instance = Photo.create(image=image)
                 photo_instance.save()
                 diary_instance.photos.add(photo_instance)
@@ -53,6 +53,33 @@ class DiaryDetailView(DiaryListView):
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+    def post(self, request, uuid, format=None):
+        diary = self.queryset.objects.get(id=uuid)
+
+        if not diary:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        photos = diary.photos.all()
+        new_content =request.data.get("content")
+        deleted_photo_ids = request.data.getlist("deleted_photo_ids")
+        new_photos = request.FILES.getlist("new_photos")
+        for id in deleted_photo_ids:
+            try:
+                deleted = photos.get(uuid=id)
+                deleted.delete()
+            except:
+                pass
+        for photo in new_photos:
+            try:
+                photo_instance = Photo.create(image=photo)
+                photo_instance.save()
+                diary.photos.add(photo_instance)
+            except:
+                pass
+        diary.content = new_content
+        diary.save()
+        return Response(status = status.HTTP_200_OK)
+    
     def delete(self, request, uuid):
         try:
             diary = self.queryset.objects.get(id=uuid)

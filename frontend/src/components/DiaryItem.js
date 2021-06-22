@@ -18,7 +18,7 @@ class DiaryItem extends Component {
                         <h3>to diary</h3>
                     </Link>
                 </div>
-                <img src={api_base_url+photos[0]}></img>
+                <img src={api_base_url+photos[0].image}></img>
             </div>         
          );
     }
