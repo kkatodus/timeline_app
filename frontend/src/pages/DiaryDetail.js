@@ -32,7 +32,7 @@ class DiaryDetail extends Component {
     deleteDiary(){
         var {id} = this.state
         var request_headers = new Headers();
-        request_headers.append("","")
+       
         
         var request_options = {
             method:"DELETE",
@@ -58,10 +58,12 @@ class DiaryDetail extends Component {
                 <Fragment>
                     <h1>Diary detail</h1>
                     <h3>{content}</h3>
+                    <div>
                     <Link to={"edit_diary/"+id}>
                         <h3>Edit diary</h3>
                     </Link>
                     <button onClick={this.deleteDiary}>Delete Diary</button>
+                    </div>
                     <img src={api_base_url+photos[0].image}/>
                 </Fragment>
                 

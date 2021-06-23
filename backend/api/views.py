@@ -12,8 +12,12 @@ from .serializers import DiarySerializer, PhotoSerializer
 class APIListView(APIView):
     def get(self, request):
         url_paths = {
-            "List":"/diary_list/",
-            "Detail":"/diary_detail/<uuid:uuid>"
+            "List":"/diary_list/ method=get",
+            "Create":"/diary_list/ method=post",
+            "Detail":"/diary_detail/<uuid:uuid> method=get",
+            "Delete":"/diary_detail/<uuid:uuid> method=delete",
+            "Update":"/diary_detail/<uuid:uuid> method=post",
+            
         }
         return Response(url_paths)
 
@@ -62,13 +66,12 @@ class DiaryDetailView(DiaryListView):
         photos = diary.photos.all()
         new_content =request.data.get("content")
         deleted_photo_ids = request.data.getlist("deleted_photo_ids")
+        print(deleted_photo_ids)
         new_photos = request.FILES.getlist("new_photos")
         for id in deleted_photo_ids:
-            try:
-                deleted = photos.get(uuid=id)
-                deleted.delete()
-            except:
-                pass
+            deleted_photo_instance = photos.get(id=id)
+            deleted_photo_instance.delete()
+           
         for photo in new_photos:
             try:
                 photo_instance = Photo.create(image=photo)
