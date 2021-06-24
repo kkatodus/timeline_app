@@ -89,6 +89,6 @@ class DiaryDetailView(DiaryListView):
             photos = diary.photos.all()
             photos.delete()
             diary.delete()
-            return Response(status=status.HTTP_200_OK)
+            return Response(status=status.HTTP_301_MOVED_PERMANENTLY)
         except:
             return Response(status=status.HTTP_404_NOT_FOUND)

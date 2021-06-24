@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
+import { api_base_url } from './Resource';
 
 
-var api_base_url = "http://localhost:8000/"
 
 class CreateForm extends Component {
     constructor(props){
@@ -70,7 +70,7 @@ class CreateForm extends Component {
             body: formdata,
             redirect:"follow",
         }
-        fetch(api_base_url+"api/diary_list/", request_options)
+        fetch(api_base_url+"/api/diary_list/", request_options)
             .then(response=>response.text())
             .then(result=>{
                 console.log(result)
@@ -91,11 +91,11 @@ class CreateForm extends Component {
         }else{
             return ( 
                 <div>
-                    <form onSubmit={this.handleSubmit} action="http://localhost:8000/diaries" method="post" type="multipart/form-data">
+                    <div>
                         <input onChange={this.handleChange} name="content" type="text"/>
                         <input onChange={this.handleChange} name="image" type="file" multiple={true}/>
-                        <button>Save</button>
-                    </form>
+                        <button onClick={this.handleSubmit}>Save</button>
+                    </div>
                 
                 </div>
             );

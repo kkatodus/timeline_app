@@ -1,7 +1,6 @@
 import React, { Component,Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-
-var api_base_url = "http://localhost:8000"
+import { api_base_url } from './Resource';
 
 class DiaryDetail extends Component {
     constructor(props){

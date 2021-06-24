@@ -1,6 +1,6 @@
 import React, { Component, Fragment} from 'react';
 import { Redirect } from 'react-router';
-var api_base_url = "http://localhost:8000"
+import { api_base_url } from './Resource';
 
 class DiaryEditForm extends Component {
     constructor(props){

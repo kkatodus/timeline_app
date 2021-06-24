@@ -1,0 +1,1 @@
+export var api_base_url = "http://localhost:8000"
