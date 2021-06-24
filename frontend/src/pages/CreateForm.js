@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 
 
 var api_base_url = "http://localhost:8000/"
@@ -8,11 +9,12 @@ class CreateForm extends Component {
         super(props)
         this.state={
             images:null,
-            content:""
+            content:"",
+            redirect:null,
         }
-        this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.getCookie = this.getCookie.bind(this)
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.getCookie = this.getCookie.bind(this);
         
     }
 
@@ -70,21 +72,34 @@ class CreateForm extends Component {
         }
         fetch(api_base_url+"api/diary_list/", request_options)
             .then(response=>response.text())
-            .then(result=>console.log(result))
+            .then(result=>{
+                console.log(result)
+                this.setState({
+                    ...this.state,
+                    redirect:"",
+                })
+            })
             .catch(error=>console.log("error",error))
     }
 
     render() { 
-        return ( 
-            <div>
-                <form onSubmit={this.handleSubmit} action="http://localhost:8000/diaries" method="post" type="multipart/form-data">
-                    <input onChange={this.handleChange} name="content" type="text"/>
-                    <input onChange={this.handleChange} name="image" type="file" multiple={true}/>
-                    <button>Save</button>
-                </form>
-                <h3>State</h3>
-            </div>
-         );
+        var {redirect} = this.state;
+        if(redirect!== null){
+            return(
+                <Redirect to={redirect}/>
+            )
+        }else{
+            return ( 
+                <div>
+                    <form onSubmit={this.handleSubmit} action="http://localhost:8000/diaries" method="post" type="multipart/form-data">
+                        <input onChange={this.handleChange} name="content" type="text"/>
+                        <input onChange={this.handleChange} name="image" type="file" multiple={true}/>
+                        <button>Save</button>
+                    </form>
+                
+                </div>
+            );
+        }
     }
 }
  

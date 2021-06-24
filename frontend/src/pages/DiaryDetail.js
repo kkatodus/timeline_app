@@ -1,5 +1,5 @@
 import React, { Component,Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 var api_base_url = "http://localhost:8000"
 
@@ -10,7 +10,8 @@ class DiaryDetail extends Component {
             content:"",
             photos:[],
             created:"",
-            id:""
+            id:"",
+            redirect:null,
         }
 
         this.fetchDiary = this.fetchDiary.bind(this)
@@ -41,13 +42,25 @@ class DiaryDetail extends Component {
         };
         fetch(api_base_url+"/api/diary_detail/"+ id,request_options)
         .then(response=>response.text())
-        .then(response=>console.log(response))
+        .then(response=>{
+            console.log(response)
+            this.setState({
+                ...this.state,
+                redirect:"",
+            })
+            
+            
+        })
         .catch(error=>console.log("error",error))
     }   
 
     render() { 
-        var {photos, id, content} = this.state;
-        if (!photos[0]){
+        var {photos, id, content,redirect} = this.state;
+        if(redirect !== null){
+            return(
+                <Redirect to={redirect}/>
+            )
+        }else if (!photos[0]){
             return(
                 <Fragment>
                     <h1>No photo</h1>

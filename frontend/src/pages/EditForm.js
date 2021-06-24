@@ -1,5 +1,5 @@
 import React, { Component, Fragment} from 'react';
-
+import { Redirect } from 'react-router';
 var api_base_url = "http://localhost:8000"
 
 class DiaryEditForm extends Component {
@@ -10,7 +10,8 @@ class DiaryEditForm extends Component {
             photos:[],
             id:"",
             deleted_photo_ids:[],
-            new_photos:null
+            new_photos:null,
+            redirect:null,
         }
         this.fetchDiary = this.fetchDiary.bind(this)
         this.handleChange = this.handleChange.bind(this)
@@ -108,30 +109,40 @@ class DiaryEditForm extends Component {
         }
         fetch(api_base_url+"/api/diary_detail/"+this.state.id,request_options)
         .then(response=>response.text())
-        .then(result=>console.log(result))
+        .then(result=>{
+            console.log(result)
+            this.setState({
+                ...this.state,
+                redirect:"",
+            })
+           
+        })
         .catch(error=>console.log("error",error))
-        console.log("submitting")
 
     }
 
 
     render() { 
-        var {content, photos, new_photos} = this.state
-        return ( 
-            <Fragment>
-                <h1>Diary edit</h1>
-                <div>
-                    <input type="text" name="content" value={content} onChange={this.handleChange}/>
-                    <input name="new_photos" onChange={this.handleChange} type="file" multiple={true}/>
-                    <button type="button" onClick={this.handleSubmit}>Save Changes</button>
-                </div>
-                {this.state.photos.map(photo=>{
-                    return(
-                        <img key={photo.id} src={api_base_url+photo.image} id={photo.id} onClick={this.handleRemovePhoto}/>
-                    )
-                })}
-            </Fragment>
-        );
+        var {content, photos, new_photos,redirect} = this.state
+        if (redirect !== null){
+            return <Redirect to={redirect} />
+        }else{
+            return ( 
+                <Fragment>
+                    <h1>Diary edit</h1>
+                    <div>
+                        <input type="text" name="content" value={content} onChange={this.handleChange}/>
+                        <input name="new_photos" onChange={this.handleChange} type="file" multiple={true}/>
+                        <button type="button" onClick={this.handleSubmit}>Save Changes</button>
+                    </div>
+                    {this.state.photos.map(photo=>{
+                        return(
+                            <img key={photo.id} src={api_base_url+photo.image} id={photo.id} onClick={this.handleRemovePhoto}/>
+                        )
+                    })}
+                </Fragment>
+            );
+        }
     }
 }
  
