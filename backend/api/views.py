@@ -4,6 +4,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework import status
+from rest_framework.permissions import IsAdminUser
+from rest_framework.authentication import TokenAuthentication
 from datetime import datetime
 
 from .models import MemoryEvent
@@ -11,6 +13,12 @@ from .serializers import MemoryEventSerializer
 # Create your views here.
 
 class APIListView(APIView):
+    authentication_classes = [
+        TokenAuthentication
+    ]
+    permission_classes = [
+        IsAdminUser
+    ]
     def get(self, request):
         url_paths = {
             "List":"/memories/ method=get",
@@ -26,6 +34,12 @@ class MemoryEventListView(APIView):
     queryset = MemoryEvent
     serializer_class = MemoryEventSerializer
     parser_classes = [MultiPartParser,FormParser]
+    authentication_classes = [
+       TokenAuthentication
+    ]
+    permission_classes = [
+        IsAdminUser
+    ]
 
     def get(self, request):
         memories = self.queryset.objects.all()
