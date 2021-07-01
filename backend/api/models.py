@@ -8,6 +8,7 @@ class MemoryEvent(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.CharField(max_length=70)
     descript = models.TextField()
+    done = models.BooleanField(default=False)
     created = models.DateTimeField(default=timezone.now)
 
     @classmethod

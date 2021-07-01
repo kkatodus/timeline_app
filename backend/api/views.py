@@ -26,7 +26,6 @@ class APIListView(APIView):
             "Detail":"/memory_detail/<uuid:uuid> method=get",
             "Delete":"/memory_detail/<uuid:uuid> method=delete",
             "Update":"/memory_detail/<uuid:uuid> method=post",
-            
         }
         return Response(url_paths)
 
@@ -52,7 +51,6 @@ class MemoryEventListView(APIView):
             memory_description = request.data.get("descript")
             memory_time = request.data.get("time")
             datetime_obj = datetime.strptime(memory_time,"%d.%m.%Y")
-            print(datetime_obj)
             diary_instance = MemoryEvent.create(title=memory_title,descript=memory_description, created=datetime_obj)
             diary_instance.save()
 
