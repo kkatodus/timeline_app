@@ -3,10 +3,33 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {createStore, applyMiddleware, compose} from "redux";
+import { Provider } from 'react-redux';
+import allReducers from './reducers';
+import thunk from 'redux-thunk';
+import { loadState, saveState } from './localStorage';
+
+const middleWare = [thunk]
+const persistedState = loadState()
+
+const store = createStore(
+  allReducers,
+  persistedState,
+  compose(
+    applyMiddleware(...middleWare),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  ))
+
+store.subscribe(()=>{
+  saveState(store.getState())
+})
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

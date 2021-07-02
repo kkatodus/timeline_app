@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import { api_base_url } from './Resource';
-
+import { api_base_url, unknown_error_alert} from './Resource';
+import {loginAction} from "../actions";
+import { connect } from 'react-redux';
+import { mapState2Props } from './Resource';
 class LogIn extends Component {
     constructor(props){
         super(props)
@@ -8,7 +10,6 @@ class LogIn extends Component {
             username:"",
             password:""
         }
-
         this.sendAuthDetail = this.sendAuthDetail.bind(this) 
         this.handleChange = this.handleChange.bind(this) 
     }
@@ -25,10 +26,16 @@ class LogIn extends Component {
             redirect:"follow"
         }
         fetch(api_base_url+"/api/auth/",request_options)
-        .then(response=>response.text())
-        .then(result=>console.log(result))
-        .catch(error=>console.log("error", error))
-
+        .then(response=>response.json())
+        .then(result=>{
+            if(!result.token){
+                var logged = false;
+            }else{
+                var logged = true
+            }
+            this.props.loginAction(logged, result.token)
+        })
+        .catch(error=>alert(unknown_error_alert))
     }
     handleChange(e){
         var target_name = e.target.name;
@@ -44,7 +51,6 @@ class LogIn extends Component {
                 ...this.state, password:target_value
             })
         }
-
     }
     render() { 
         return ( 
@@ -53,10 +59,9 @@ class LogIn extends Component {
                 <input onChange={this.handleChange} name="username" type="text"/>
                 <input onChange={this.handleChange} name="password" type="password"/>
                 <button onClick={this.sendAuthDetail}>Login</button>
-                
             </Fragment>
          );
     }
 }
- 
-export default LogIn;
+
+export default connect(mapState2Props,{loginAction})(LogIn);
