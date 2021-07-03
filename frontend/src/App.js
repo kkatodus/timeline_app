@@ -6,11 +6,12 @@ import { connect } from 'react-redux';
 
 import Nav from './components/Navbar';
 import CreateForm from './pages/CreateForm';
-import DiaryList from './pages/DiaryList';
+import MemoryList from './pages/MemoryList';
 import DiaryEditForm from './pages/EditForm';
 import DiaryDetail from './pages/DiaryDetail';
 import LogIn from './pages/LogIn';
-import { logoutAction } from './actions';
+import { mapState2Props } from './pages/Resource';
+import "./styles/base.css"
 
 class App extends Component {
   constructor(props){
@@ -26,20 +27,19 @@ class App extends Component {
     }
     return ( 
       <Router>
+        <div id="app">  
         <Nav />
         <Switch>
-          <Route path="/" exact component={DiaryList}/>
+          <Route path="/" exact component={MemoryList}/>
           <Route path="/create_diary" exact component={CreateForm}/>
           <Route path="/diary_detail/:uuid" exact component={DiaryDetail}/>
           <Route path="/diary_detail/edit_diary/:uuid" exact component={DiaryEditForm}/>
         </Switch>
+      </div>
+
       </Router>
      );
   }
 }
-const mapState2Props = state =>({
-  login_token:state.auth.token,
-  is_logged:state.auth.logged
-})
  
-export default connect(mapState2Props,{logoutAction})(App);
+export default connect(mapState2Props,{})(App);

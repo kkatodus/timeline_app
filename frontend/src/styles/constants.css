@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --ff-primary: "Amatic SC", cursive;
+
+  --dark-blue: #2c4096;
+  --blue: #6b8d97;
+  --red: #e55b5b;
+  --pink: #e57d7c;
+  --neutral: #fda88b;
+  --dark-neutral: #9b7f7e;
+
+  --fs-l: 5rem;
+  --fs-m: 2rem;
+  --fs-s: 1rem;
+}

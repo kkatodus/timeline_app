@@ -1,0 +1,42 @@
+@import "./constants.css";
+* {
+  font-family: var(--ff-primary);
+}
+
+.page-name {
+  margin: 20px;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+.nav-bar {
+  position: relative;
+  background-color: var(--blue);
+  height: 100vh;
+  width: 200px;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.nav-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.nav-item {
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+.nav-item a {
+  text-decoration: none;
+  color: var(--neutral);
+}
+
+.nav-item-title {
+  padding: 8px;
+}

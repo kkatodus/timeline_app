@@ -9,7 +9,7 @@ class MemoryEvent(models.Model):
     title = models.CharField(max_length=70)
     descript = models.TextField()
     done = models.BooleanField(default=False)
-    created = models.DateTimeField(default=timezone.now)
+    created = models.DateTimeField(blank=True, null=True)
 
     @classmethod
     def create(cls, title, descript, created):

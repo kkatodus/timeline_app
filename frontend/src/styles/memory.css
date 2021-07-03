@@ -1,0 +1,31 @@
+.memory-item {
+  display: flex;
+  color: var(--neutral);
+}
+
+.memory-item:hover() {
+  box-shadow: 2px;
+}
+
+.memory-content {
+  background-color: var(--red);
+  width: 400px;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 20px;
+}
+
+.memory-title {
+  color: var(--dark-blue);
+}
+.memory-date {
+  margin: 5px;
+  width: 120px;
+  height: 120px;
+  color: var(--dark-blue);
+  background-color: var(--red);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

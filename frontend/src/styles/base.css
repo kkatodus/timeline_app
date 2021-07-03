@@ -1,0 +1,16 @@
+@import "./constants.css";
+a {
+  text-decoration: none;
+}
+
+#app {
+  display: flex;
+  background-color: var(--neutral);
+}
+
+.page-container {
+  margin: 0 20px;
+}
+.page-title {
+  margin: 5px;
+}
