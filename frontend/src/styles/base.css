@@ -9,8 +9,13 @@ a {
 }
 
 .page-container {
-  margin: 0 20px;
+  overflow-y: scroll;
+  width: 100%;
 }
 .page-title {
   margin: 5px;
+}
+
+.card-shadow {
+  box-shadow: 4px 4px 3px 1px rgba(155, 127, 126, 0.5);
 }

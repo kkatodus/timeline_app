@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import {Link} from "react-router-dom";
-import "../styles/base.css"
-import "../styles/memory.css"
-var api_base_url = "http://localhost:8000"
+import { Link } from 'react-router-dom';
 
-class MemoryItem extends Component {
+class TodoItem extends Component {
     constructor(props){
         super(props)
     }
@@ -13,9 +10,6 @@ class MemoryItem extends Component {
         var {title, descript, created, done, id} = this.props;
         return ( 
             <Link className="memory-item" to={"memory_detail/"+id}>
-                <div className="memory-date card-shadow">
-                    <h3>{created.slice(0,10)}</h3>
-                </div>
                 <div className="memory-content card-shadow">
                     <h2 className="memory-title">{title}</h2>
                     <h3 className="memory-descript">{descript}</h3>
@@ -27,4 +21,4 @@ class MemoryItem extends Component {
     }
 }
  
-export default MemoryItem;
+export default TodoItem;

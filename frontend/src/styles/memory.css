@@ -1,31 +1,50 @@
 .memory-item {
   display: flex;
-  color: var(--neutral);
+  margin: 0px 0px 10px 0px;
+  border-radius: 10px;
 }
 
-.memory-item:hover() {
-  box-shadow: 2px;
+.memory-item:hover {
+  transition: 200ms;
+  background-color: var(--dark-neutral);
 }
 
 .memory-content {
   background-color: var(--red);
-  width: 400px;
+  width: 100%;
   border-radius: 10px;
   margin: 5px;
   padding: 20px;
 }
 
 .memory-title {
-  color: var(--dark-blue);
+  color: var(--neutral);
 }
 .memory-date {
   margin: 5px;
   width: 120px;
   height: 120px;
-  color: var(--dark-blue);
+  color: var(--neutral);
   background-color: var(--red);
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 20px;
+}
+
+.memory-descript {
+  color: var(--dark-neutral);
+}
+
+@media screen and (min-device-width: 320px) and (max-device-width: 799px) {
+  .memory-content {
+    width: 100%;
+    font-size: 0.7rem;
+  }
+  .memory-date {
+    font-size: 0.8rem;
+    height: 100px;
+    width: 100px;
+  }
 }

@@ -9,6 +9,8 @@ import CreateForm from './pages/CreateForm';
 import MemoryList from './pages/MemoryList';
 import DiaryEditForm from './pages/EditForm';
 import DiaryDetail from './pages/DiaryDetail';
+import LetterPage from './pages/LetterPage';
+import TodoList from './pages/TodoList';
 import LogIn from './pages/LogIn';
 import { mapState2Props } from './pages/Resource';
 import "./styles/base.css"
@@ -31,6 +33,8 @@ class App extends Component {
         <Nav />
         <Switch>
           <Route path="/" exact component={MemoryList}/>
+          <Route path="/todo" exact component={TodoList}/>
+          <Route path="/letter" exact component={LetterPage}/>
           <Route path="/create_diary" exact component={CreateForm}/>
           <Route path="/diary_detail/:uuid" exact component={DiaryDetail}/>
           <Route path="/diary_detail/edit_diary/:uuid" exact component={DiaryEditForm}/>

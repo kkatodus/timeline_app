@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {Link} from "react-router-dom";
+import {CgLogOut} from "react-icons/cg"
 
 import { logoutAction } from '../actions';
 import { mapState2Props } from "../pages/Resource"
@@ -23,7 +24,7 @@ class Nav extends Component {
                 <ul className="nav-items">
                     {sideNavData.map(item=>{
                         return(
-                            <li className="nav-item">
+                            <li key={item.title} className="nav-item">
                                 <Link to={item.link}>
                                     {item.icon}
                                     <span className="nav-item-title">{item.title}</span>
@@ -32,8 +33,9 @@ class Nav extends Component {
                         )
                     })}
     
-                    <li>
-                        <button onClick={this.props.logoutAction}>Logout</button>
+                    <li className="nav-item logout-button" onClick={this.props.logoutAction}>
+                        <CgLogOut/>
+                        
                     </li>
                 
                 </ul>
