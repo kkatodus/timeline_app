@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { mapState2Props } from './Resource';
 
+import {RiHeartAddFill} from "react-icons/ri"
 import MemoryItem from '../components/MemoryItem';
 import "../styles/memory.css"
 import "../styles/base.css"
@@ -45,6 +46,7 @@ class MemoryList extends Component {
 
         return ( 
             <div className="page-container">
+                <div className="add-button"><RiHeartAddFill/></div>
                 <h1 className="page-title">Memories</h1>
                 <div className="page-content">
                 {memories.map(memory_item=>{

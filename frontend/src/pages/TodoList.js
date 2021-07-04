@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 
 import { mapState2Props,api_base_url } from './Resource';
 import { connect } from 'react-redux';
+import {RiMenuAddFill} from "react-icons/ri"
+
 import TodoItem from '../components/TodoItem';
 class TodoList extends Component {
     constructor(props){
@@ -38,6 +40,7 @@ class TodoList extends Component {
         var {memories} = this.state;
         return ( 
             <div className="page-container">
+                <div className="add-button"><RiMenuAddFill/></div>
                 <h1 className="page-title">Todo</h1>
                 <div className="page-content">
                 {memories.map(memory_item=>{

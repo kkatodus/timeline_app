@@ -1,14 +1,23 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import {BiUser} from "react-icons/bi"
+import {RiLockPasswordFill} from "react-icons/ri"
+import {FiLogIn} from "react-icons/fi"
+
+import { mapState2Props } from './Resource';
 import { api_base_url, unknown_error_alert} from './Resource';
 import {loginAction} from "../actions";
-import { connect } from 'react-redux';
-import { mapState2Props } from './Resource';
+
+import "../styles/login.css"
+import "../styles/base.css"
+
 class LogIn extends Component {
     constructor(props){
         super(props)
         this.state = {
             username:"",
-            password:""
+            password:"",
+            failed:false
         }
         this.sendAuthDetail = this.sendAuthDetail.bind(this) 
         this.handleChange = this.handleChange.bind(this) 
@@ -30,10 +39,15 @@ class LogIn extends Component {
         .then(result=>{
             if(!result.token){
                 var logged = false;
+                this.setState({
+                    ...this.state,
+                    failed:true
+                })
             }else{
                 var logged = true
             }
             this.props.loginAction(logged, result.token)
+           
         })
         .catch(error=>alert(unknown_error_alert))
     }
@@ -53,13 +67,26 @@ class LogIn extends Component {
         }
     }
     render() { 
+        var message = this.state.failed ? ("Check your password and username"):("")
         return ( 
-            <Fragment>
-                <h1>Login</h1>
-                <input onChange={this.handleChange} name="username" type="text"/>
-                <input onChange={this.handleChange} name="password" type="password"/>
-                <button onClick={this.sendAuthDetail}>Login</button>
-            </Fragment>
+            <div className="login-background">
+                <div className="bubble login-bubble card-shadow">
+                    <h1 className="bubble-title">Login</h1>
+                    <h3 className="bubble-message">{message}</h3>
+                    <div className="bubble-data">
+                        <div className="bubble-entry">
+                            <label className="data-label" for="username"><BiUser/></label>
+                            <input onChange={this.handleChange} name="username" type="text"/>
+                        </div>
+                        <div className="bubble-entry">
+                            <label className="data-label" for="password"><RiLockPasswordFill/></label>
+                            <input onChange={this.handleChange} name="password" type="password"/>
+                        </div>
+                    </div>
+                    <button className="bubble-submit-button" onClick={this.sendAuthDetail}><FiLogIn/></button>
+
+                </div>
+            </div>
          );
     }
 }

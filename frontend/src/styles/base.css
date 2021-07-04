@@ -14,8 +14,78 @@ a {
 }
 .page-title {
   margin: 5px;
+  font-weight: bolder;
 }
-
 .card-shadow {
   box-shadow: 4px 4px 3px 1px rgba(155, 127, 126, 0.5);
+}
+
+.add-button {
+  background-color: var(--blue);
+  font-size: 1.7rem;
+  width: 5rem;
+  height: 5rem;
+  position: absolute;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 0.5rem;
+  top: 50%;
+  transition: 200ms;
+  color: var(--red);
+}
+
+.add-button:hover {
+  cursor: pointer;
+  border-radius: 100%;
+  transition: 500ms;
+}
+
+.bubble {
+  height: 60%;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.bubble-title {
+  margin: 20px;
+  font-size: 3rem;
+}
+
+.bubble-message {
+  margin: 20px;
+}
+
+.bubble-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 60%;
+}
+
+.bubble-entry {
+  display: flex;
+  justify-content: space-around;
+  font-size: 2rem;
+}
+
+.bubble-entry input {
+  width: 80%;
+}
+
+.bubble-submit-button {
+  font-size: 2rem;
+  width: 3rem;
+  border-radius: 5px;
+}
+
+@media screen and (min-device-width: 320px) and (max-device-width: 799px) {
+  .bubble {
+    width: 70%;
+  }
 }

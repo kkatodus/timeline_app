@@ -1,0 +1,14 @@
+@import "./constants.css";
+
+.login-background {
+  background-color: var(--neutral);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-bubble {
+  background-color: var(--blue);
+}
