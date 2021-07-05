@@ -2,14 +2,19 @@ import React, { Component,Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { api_base_url } from './Resource';
 
-class DiaryDetail extends Component {
+import { connect } from 'react-redux';
+import { mapState2Props } from './Resource';
+import "../styles/base.css"
+
+class MemoryDetail extends Component {
     constructor(props){
         super(props)
         this.state = {
-            content:"",
-            photos:[],
+            title:"",
+            descript:"",
             created:"",
             id:"",
+
             redirect:null,
         }
 
@@ -22,7 +27,15 @@ class DiaryDetail extends Component {
         this.fetchDiary(params.uuid)
     }
     fetchDiary(id){
-        fetch(api_base_url+"/api/diary_detail/"+id)
+        var request_headers = new Headers();
+        var request_token = this.props.login_token;
+        request_headers.append("Authorization","Token "+request_token)
+        var request_options = {
+            method:"GET",
+            headers:request_headers,
+            redirect:"follow"
+        }
+        fetch(api_base_url+"/api/memory_detail/"+id, request_options)
             .then(data=>data.json())
             .then(data=>this.setState({
                 ...data
@@ -39,7 +52,7 @@ class DiaryDetail extends Component {
             headers:request_headers,
             redirect:"follow"
         };
-        fetch(api_base_url+"/api/diary_detail/"+ id,request_options)
+        fetch(api_base_url+"/api/memory_detail/"+ id,request_options)
         .then(response=>response.text())
         .then(response=>{
             console.log(response)
@@ -59,16 +72,10 @@ class DiaryDetail extends Component {
             return(
                 <Redirect to={redirect}/>
             )
-        }else if (!photos[0]){
-            return(
-                <Fragment>
-                    <h1>No photo</h1>
-                </Fragment>
-            )
         }else{
             return ( 
-                <Fragment>
-                    <h1>Diary detail</h1>
+                <div className="page-container">
+                    <h1 className="page-title">Memory detail</h1>
                     <h3>{content}</h3>
                     <div>
                     <Link to={"edit_diary/"+id}>
@@ -76,12 +83,11 @@ class DiaryDetail extends Component {
                     </Link>
                     <button onClick={this.deleteDiary}>Delete Diary</button>
                     </div>
-                    <img src={api_base_url+photos[0].image}/>
-                </Fragment>
+                </div >
                 
             );
         }
     }
 }
  
-export default DiaryDetail;
+export default connect(mapState2Props, {})(MemoryDetail);

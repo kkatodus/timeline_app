@@ -8,7 +8,7 @@ import Nav from './components/Navbar';
 import CreateForm from './pages/CreateForm';
 import MemoryList from './pages/MemoryList';
 import DiaryEditForm from './pages/EditForm';
-import DiaryDetail from './pages/DiaryDetail';
+import MemoryDetail from './pages/MemoryDetail';
 import LetterPage from './pages/LetterPage';
 import TodoList from './pages/TodoList';
 import LogIn from './pages/LogIn';
@@ -36,7 +36,7 @@ class App extends Component {
           <Route path="/todo" exact component={TodoList}/>
           <Route path="/letter" exact component={LetterPage}/>
           <Route path="/create_diary" exact component={CreateForm}/>
-          <Route path="/diary_detail/:uuid" exact component={DiaryDetail}/>
+          <Route path="/memory_detail/:uuid" exact component={MemoryDetail}/>
           <Route path="/diary_detail/edit_diary/:uuid" exact component={DiaryEditForm}/>
         </Switch>
       </div>

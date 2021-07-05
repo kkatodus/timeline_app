@@ -10,3 +10,15 @@ export const logoutAction = () => dispatch=>{
         type:"auth/LOGOUT"
     })
 }
+
+export const showCreatingFormAction = () => dispatch => {
+    dispatch({
+        type:"memory/CREATE"
+    })
+}
+
+export const hideCreatingFormAction = () => dispatch => {
+    dispatch({
+        type:"memory/UNCREATE"
+    })
+}

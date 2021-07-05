@@ -1,21 +1,26 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router';
 import { api_base_url } from './Resource';
+import { connect } from 'react-redux';
+import {AiOutlineClose} from "react-icons/ai"
 
+import { mapState2Props } from './Resource';
+import { hideCreatingFormAction } from '../actions';
 
+import "../styles/base.css"
+import "../styles/memory.css"
 
 class CreateForm extends Component {
     constructor(props){
         super(props)
         this.state={
-            images:null,
-            content:"",
-            redirect:null,
+            title:"",
+            descript:"",
+           
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.getCookie = this.getCookie.bind(this);
-        
+        this.handleClick = this.handleClick.bind(this);
     }
 
     getCookie(name) {
@@ -70,7 +75,7 @@ class CreateForm extends Component {
             body: formdata,
             redirect:"follow",
         }
-        fetch(api_base_url+"/api/diary_list/", request_options)
+        fetch(api_base_url+"/api/memories/", request_options)
             .then(response=>response.text())
             .then(result=>{
                 console.log(result)
@@ -82,25 +87,49 @@ class CreateForm extends Component {
             .catch(error=>console.log("error",error))
     }
 
-    render() { 
-        var {redirect} = this.state;
-        if(redirect!== null){
-            return(
-                <Redirect to={redirect}/>
-            )
-        }else{
-            return ( 
-                <div>
-                    <div>
-                        <input onChange={this.handleChange} name="content" type="text"/>
-                        <input onChange={this.handleChange} name="image" type="file" multiple={true}/>
-                        <button onClick={this.handleSubmit}>Save</button>
-                    </div>
-                
-                </div>
-            );
+    handleClick(e){
+        if ("background"=== e.target.id){
+            this.props.hideCreatingFormAction()
         }
+    }
+    
+    render() { 
+        var message = ""
+        var {already_done} = this.props;
+        console.log(already_done)
+        var date_entry_content = <div>
+            <input type="text"></input>
+        </div>
+
+        var date_entry = already_done ? date_entry_content:""
+
+        return ( 
+            <div name="background" id="background" onClick={this.handleClick} className="background-fill creating-background">
+                <div name="bubble" id="bubble" className="bubble creating-bubble card-shadow">
+                    <div className="bubble-header">
+                    <AiOutlineClose className="bubble-close-btn" onClick={this.props.hideCreatingFormAction}/>
+
+                    <h1 className="bubble-title">New Memory</h1>
+                    </div>
+                    <h3 className="bubble-message">{message}</h3>
+                    <div className="bubble-data">
+                        <div className="bubble-entry">
+                            <label className="data-label"><h4>Give it a title:</h4></label>
+                            <input onChange={this.handleChange} name="title" type="text"/>
+                        </div>
+                        <div className="bubble-entry">
+                            <label className="data-label"><h4>Describe it:</h4></label>
+                            <input onChange={this.handleChange} name="descript" type="text"/>
+                        </div>
+                        {date_entry}
+                        
+                    </div>
+                    <button className="bubble-submit-button" onClick={this.handleSubmit}>Save</button>
+                </div>
+            </div>
+        );
+        
     }
 }
  
-export default CreateForm;
+export default connect(mapState2Props, {hideCreatingFormAction})(CreateForm);

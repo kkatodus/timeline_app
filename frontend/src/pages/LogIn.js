@@ -69,17 +69,17 @@ class LogIn extends Component {
     render() { 
         var message = this.state.failed ? ("Check your password and username"):("")
         return ( 
-            <div className="login-background">
+            <div className="background-fill login-background">
                 <div className="bubble login-bubble card-shadow">
                     <h1 className="bubble-title">Login</h1>
                     <h3 className="bubble-message">{message}</h3>
                     <div className="bubble-data">
                         <div className="bubble-entry">
-                            <label className="data-label" for="username"><BiUser/></label>
+                            <label className="data-label" ><BiUser/></label>
                             <input onChange={this.handleChange} name="username" type="text"/>
                         </div>
                         <div className="bubble-entry">
-                            <label className="data-label" for="password"><RiLockPasswordFill/></label>
+                            <label className="data-label" ><RiLockPasswordFill/></label>
                             <input onChange={this.handleChange} name="password" type="password"/>
                         </div>
                     </div>

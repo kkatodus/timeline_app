@@ -8,6 +8,7 @@ export var unknown_error_alert = "some unknown error occured"
 export const mapState2Props = state => ({
     login_token:state.auth.token,
     is_logged:state.auth.logged,
+    creating:state.memory.creating
 })
 
 

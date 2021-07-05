@@ -5,6 +5,8 @@ import { mapState2Props } from './Resource';
 
 import {RiHeartAddFill} from "react-icons/ri"
 import MemoryItem from '../components/MemoryItem';
+import CreateForm from './CreateForm';
+import { showCreatingFormAction } from '../actions';
 import "../styles/memory.css"
 import "../styles/base.css"
 
@@ -15,7 +17,6 @@ class MemoryList extends Component {
         super(props)
         this.state = {
             memories:[],
-            creating:false,
         }
 
         this.fetchMemories = this.fetchMemories.bind(this)
@@ -41,12 +42,15 @@ class MemoryList extends Component {
         .then(data=>data.json())
         .then(data=>this.setState({memories:data}))        
     }
+    
     render() {
         const {memories} = this.state;
-
+        const {creating} = this.props;
+        var create_form = creating ? <CreateForm already_done={true}/> : ""
         return ( 
             <div className="page-container">
-                <div className="add-button"><RiHeartAddFill/></div>
+                {create_form}
+                <div className="add-button" onClick={this.props.showCreatingFormAction}><RiHeartAddFill/></div>
                 <h1 className="page-title">Memories</h1>
                 <div className="page-content">
                 {memories.map(memory_item=>{
@@ -62,4 +66,4 @@ class MemoryList extends Component {
     }
 }
  
-export default connect(mapState2Props, {})(MemoryList);
+export default connect(mapState2Props, {showCreatingFormAction})(MemoryList);

@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import {RiMenuAddFill} from "react-icons/ri"
 
 import TodoItem from '../components/TodoItem';
+import { showCreatingFormAction } from '../actions';
+import CreateForm from './CreateForm';
 class TodoList extends Component {
     constructor(props){
         super(props)
@@ -38,9 +40,12 @@ class TodoList extends Component {
     }
     render() { 
         var {memories} = this.state;
+        var {creating} = this.props;
+        var create_form = creating ? <CreateForm already_done={false}/> : ""
         return ( 
             <div className="page-container">
-                <div className="add-button"><RiMenuAddFill/></div>
+                {create_form}
+                <div className="add-button" onClick={this.props.showCreatingFormAction}><RiMenuAddFill/></div>
                 <h1 className="page-title">Todo</h1>
                 <div className="page-content">
                 {memories.map(memory_item=>{
@@ -57,4 +62,4 @@ class TodoList extends Component {
 }
  
  
-export default connect(mapState2Props, {})(TodoList);
+export default connect(mapState2Props, {showCreatingFormAction})(TodoList);

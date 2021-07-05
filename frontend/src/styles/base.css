@@ -1,4 +1,5 @@
 @import "./constants.css";
+@import url("https://fonts.googleapis.com/css2?family=Yomogi&display=swap");
 a {
   text-decoration: none;
 }
@@ -42,6 +43,19 @@ a {
   transition: 500ms;
 }
 
+.background-fill {
+  width: 100%;
+  height: 100vh;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .bubble {
   height: 60%;
   width: 40%;
@@ -75,13 +89,29 @@ a {
 }
 
 .bubble-entry input {
+  font-size: 100%;
   width: 80%;
+}
+
+.bubble-close-btn {
+  float: right;
+  font-size: 1.7rem;
+  transition: 200ms;
+}
+.bubble-close-btn:hover {
+  cursor: pointer;
+  color: whitesmoke;
+  transition: 200ms;
 }
 
 .bubble-submit-button {
   font-size: 2rem;
   width: 3rem;
   border-radius: 5px;
+}
+
+.letter-text {
+  font-family: "Yomogi", cursive;
 }
 
 @media screen and (min-device-width: 320px) and (max-device-width: 799px) {

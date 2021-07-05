@@ -7,6 +7,7 @@ import { logoutAction } from '../actions';
 import { mapState2Props } from "../pages/Resource"
 import { sideNavData } from '../pages/Resource';
 import "../styles/navbar.css"
+import "../styles/base.css"
 
 class Nav extends Component {
     constructor(props){
@@ -19,7 +20,7 @@ class Nav extends Component {
     
     render() { 
         return (           
-            <nav className="nav-bar">
+            <nav className="nav-bar card-shadow">
                 <h1 className="page-name">FOR MANAMI</h1>
                 <ul className="nav-items">
                     {sideNavData.map(item=>{
