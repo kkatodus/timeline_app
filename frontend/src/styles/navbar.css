@@ -10,6 +10,7 @@
 }
 
 .nav-bar {
+  position: fixed;
   background-color: var(--blue);
   height: 100vh;
   width: 200px;

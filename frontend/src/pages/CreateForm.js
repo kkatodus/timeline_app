@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { api_base_url } from './Resource';
 import { connect } from 'react-redux';
 import {AiOutlineClose} from "react-icons/ai"
+import {BsCalendarFill} from "react-icons/bs"
 
 import { mapState2Props } from './Resource';
 import { hideCreatingFormAction } from '../actions';
@@ -15,7 +16,7 @@ class CreateForm extends Component {
         this.state={
             title:"",
             descript:"",
-           
+            time:"",
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -41,17 +42,20 @@ class CreateForm extends Component {
 
     handleChange(e){
         var edited = e.target.name
-        if (edited === "content"){
+        if (edited === "title"){
             this.setState({
                 ...this.state,
-                content:e.target.value,
-                
+                title:e.target.value,
             })
-        }else if (edited === "image"){
-            console.log(e.target.files)
+        }else if (edited === "descript"){
             this.setState({
                 ...this.state,
-                images:e.target.files
+                descript:e.target.value
+            })
+        }else if (edited === "time"){
+            this.setState({
+                ...this.state,
+                time:e.target.value
             })
         }
        
@@ -62,12 +66,16 @@ class CreateForm extends Component {
         const  csrftoken = this.getCookie("csrftoken")
 
         var formdata = new FormData()
-        Array.from(this.state.images).forEach(file=>{formdata.append("image",file)}
-        )
-        formdata.append("content",this.state.content) 
+        var {title, descript, time} = this.state;
+        
+        formdata.append("title",title);
+        formdata.append("descript",descript)
+        formdata.append("time",time) 
+        formdata.append("done",this.props.already_done)
 
         var request_headers = new Headers();
         request_headers.append("X-CSRFToken",csrftoken)
+        request_headers.append("Authorization", "Token "+this.props.login_token)
 
         var request_options = {
             method: "POST",
@@ -78,27 +86,23 @@ class CreateForm extends Component {
         fetch(api_base_url+"/api/memories/", request_options)
             .then(response=>response.text())
             .then(result=>{
-                console.log(result)
-                this.setState({
-                    ...this.state,
-                    redirect:"",
-                })
+                this.props.onHide()
             })
             .catch(error=>console.log("error",error))
     }
 
     handleClick(e){
         if ("background"=== e.target.id){
-            this.props.hideCreatingFormAction()
+            this.props.onHide()
         }
     }
     
     render() { 
         var message = ""
         var {already_done} = this.props;
-        console.log(already_done)
-        var date_entry_content = <div>
-            <input type="text"></input>
+        var date_entry_content = <div className="bubble-entry datetime-entry">
+            <label className="data-label bubble-icon"><BsCalendarFill/></label>
+            <input onChange={this.handleChange} name="time" type="date"></input>
         </div>
 
         var date_entry = already_done ? date_entry_content:""
@@ -107,9 +111,9 @@ class CreateForm extends Component {
             <div name="background" id="background" onClick={this.handleClick} className="background-fill creating-background">
                 <div name="bubble" id="bubble" className="bubble creating-bubble card-shadow">
                     <div className="bubble-header">
-                    <AiOutlineClose className="bubble-close-btn" onClick={this.props.hideCreatingFormAction}/>
+                    <AiOutlineClose className="bubble-close-btn" onClick={()=>this.props.onHide()}/>
 
-                    <h1 className="bubble-title">New Memory</h1>
+                    <h1 className="bubble-title">{this.props.create_bubble_title}</h1>
                     </div>
                     <h3 className="bubble-message">{message}</h3>
                     <div className="bubble-data">
@@ -119,7 +123,7 @@ class CreateForm extends Component {
                         </div>
                         <div className="bubble-entry">
                             <label className="data-label"><h4>Describe it:</h4></label>
-                            <input onChange={this.handleChange} name="descript" type="text"/>
+                            <textarea onChange={this.handleChange} name="descript" rows="5" cols="100"/>
                         </div>
                         {date_entry}
                         

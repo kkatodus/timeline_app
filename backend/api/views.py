@@ -46,17 +46,20 @@ class MemoryEventListView(APIView):
         return Response(serializer.data)
     
     def post(self, request, format=None):
-        try:
-            memory_title = request.data.get("title")
-            memory_description = request.data.get("descript")
+        # try:
+        memory_title = request.data.get("title")
+        memory_description = request.data.get("descript")
+        if int(request.data.get("done")):
             memory_time = request.data.get("time")
-            datetime_obj = datetime.strptime(memory_time,"%d.%m.%Y")
-            diary_instance = MemoryEvent.create(title=memory_title,descript=memory_description, created=datetime_obj)
-            diary_instance.save()
+            datetime_obj = datetime.strptime(memory_time,"%Y-%m-%d")
+            diary_instance = MemoryEvent.create(title=memory_title,descript=memory_description, created=datetime_obj, done=True)
+        else:
+            diary_instance = MemoryEvent.create(title=memory_title,descript=memory_description)
+        diary_instance.save()
 
-            return Response(status=status.HTTP_201_CREATED)
-        except:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_201_CREATED)
+        # except:
+        #     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class MemoryEventDetailView(MemoryEventListView):
 
@@ -79,11 +82,12 @@ class MemoryEventDetailView(MemoryEventListView):
         new_title =request.data.get("title")
         new_descript = request.data.get("descript")
         new_created = request.data.get("created")
-        datetime_obj = datetime.strptime(new_created,"%d.%m.%Y")
+        datetime_obj = datetime.strptime(new_created,"%d-%m-%Y")
+       
         memory_event.title = new_title
         memory_event.descript = new_descript
         memory_event.created = datetime_obj
-        memory_event.save()
+        #memory_event.save()
 
         return Response(status = status.HTTP_200_OK)
     

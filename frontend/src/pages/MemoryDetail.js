@@ -5,6 +5,7 @@ import { api_base_url } from './Resource';
 import { connect } from 'react-redux';
 import { mapState2Props } from './Resource';
 import "../styles/base.css"
+import "../styles/detail.css"
 
 class MemoryDetail extends Component {
     constructor(props){
@@ -14,7 +15,8 @@ class MemoryDetail extends Component {
             descript:"",
             created:"",
             id:"",
-
+            done:"",
+            editing:false,
             redirect:null,
         }
 
@@ -67,26 +69,26 @@ class MemoryDetail extends Component {
     }   
 
     render() { 
-        var {photos, id, content,redirect} = this.state;
-        if(redirect !== null){
-            return(
-                <Redirect to={redirect}/>
+        var {title,descript,done,id,redirect,created} = this.state;
+        if(title ===""){
+            return (
+                <div className="page-container detail-container">
+                    <h1 className="page-title">Loading Memory...</h1>
+                </div>
             )
-        }else{
-            return ( 
-                <div className="page-container">
-                    <h1 className="page-title">Memory detail</h1>
-                    <h3>{content}</h3>
-                    <div>
-                    <Link to={"edit_diary/"+id}>
-                        <h3>Edit diary</h3>
-                    </Link>
-                    <button onClick={this.deleteDiary}>Delete Diary</button>
-                    </div>
-                </div >
-                
-            );
         }
+        var background_cl = done ? "done-memory":"not-done-memory"
+        var date = done ?  <h3 className="detail-date">{created.slice(0,10)}</h3> :""
+        return ( 
+            <div className="page-container detail-container">
+                <h1 className="page-title"></h1>
+                <div className={"detail-page-content card-shadow "+background_cl}>
+                    <h1 className="detail-title">{title}</h1>
+                    <h3 className="detail-descript">{descript}</h3>
+                    {date}
+                </div>
+            </div >  
+        );
     }
 }
  

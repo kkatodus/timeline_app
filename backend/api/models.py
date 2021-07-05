@@ -12,8 +12,8 @@ class MemoryEvent(models.Model):
     created = models.DateTimeField(blank=True, null=True)
 
     @classmethod
-    def create(cls, title, descript, created):
-        diary = cls(title=title, descript=descript, created=created)
+    def create(cls, title, descript, **kwargs):
+        diary = cls(title=title, descript=descript, **kwargs)
         return diary
 
     class Meta:

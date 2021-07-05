@@ -1,0 +1,44 @@
+@import "./constants.css";
+
+.detail-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-page-content {
+  width: 80%;
+  height: 80%;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.detail-title {
+  position: relative;
+  margin: 10px;
+  color: var(--neutral);
+}
+
+.detail-descript {
+  margin-top: 10px;
+  padding: 5px;
+  font-size: 1.5rem;
+  height: 80%;
+  overflow-y: scroll;
+  color: var(--neutral);
+}
+
+.detail-date {
+  margin-top: 10px;
+  color: var(--neutral);
+}
+
+.done-memory {
+  background-color: var(--red);
+}
+.not-done-memory {
+  background-color: var(--dark-blue);
+}

@@ -12,7 +12,11 @@ a {
 .page-container {
   overflow-y: scroll;
   width: 100%;
+  margin-left: 220px;
+  padding-right: 20px;
+  height: 100vh;
 }
+
 .page-title {
   margin: 5px;
   font-weight: bolder;
@@ -26,7 +30,7 @@ a {
   font-size: 1.7rem;
   width: 5rem;
   height: 5rem;
-  position: absolute;
+  position: fixed;
   border-radius: 20px;
   display: flex;
   justify-content: center;
@@ -66,6 +70,11 @@ a {
   padding: 10px;
 }
 
+.bubble-icon {
+  font-size: 2rem;
+  color: var(--dark-blue);
+}
+
 .bubble-title {
   margin: 20px;
   font-size: 3rem;
@@ -85,12 +94,17 @@ a {
 .bubble-entry {
   display: flex;
   justify-content: space-around;
-  font-size: 2rem;
+  font-size: 1.3rem;
 }
 
-.bubble-entry input {
+.bubble-entry input,
+.bubble-entry textarea {
   font-size: 100%;
   width: 80%;
+}
+
+.datetime-entry {
+  font-size: 1rem;
 }
 
 .bubble-close-btn {
@@ -115,6 +129,10 @@ a {
 }
 
 @media screen and (min-device-width: 320px) and (max-device-width: 799px) {
+  .page-container {
+    margin-left: 110px;
+    margin-right: 10px;
+  }
   .bubble {
     width: 70%;
   }

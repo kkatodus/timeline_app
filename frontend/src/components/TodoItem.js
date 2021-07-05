@@ -7,10 +7,10 @@ class TodoItem extends Component {
     }
     
     render() { 
-        var {title, descript, created, done, id} = this.props;
+        var {title, descript,id} = this.props;
         return ( 
             <Link className="memory-item" to={"memory_detail/"+id}>
-                <div className="memory-content card-shadow">
+                <div className="memory-content card-shadow todo-content">
                     <h2 className="memory-title">{title}</h2>
                     <h3 className="memory-descript">{descript}</h3>
                 </div>

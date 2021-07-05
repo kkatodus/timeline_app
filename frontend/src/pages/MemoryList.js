@@ -17,9 +17,11 @@ class MemoryList extends Component {
         super(props)
         this.state = {
             memories:[],
+            creating:false,
         }
 
         this.fetchMemories = this.fetchMemories.bind(this)
+        this.handleModalHide = this.handleModalHide.bind(this)
     }
     componentDidMount(){
         this.fetchMemories()
@@ -28,8 +30,6 @@ class MemoryList extends Component {
     fetchMemories(){
         var fetch_url = api_base_url+"api/memories/"
         var request_token = this.props.login_token;
-        
-
         var request_headers = new Headers();
         request_headers.append("Authorization","Token "+request_token)
 
@@ -42,15 +42,22 @@ class MemoryList extends Component {
         .then(data=>data.json())
         .then(data=>this.setState({memories:data}))        
     }
+
+    handleModalHide(){
+        this.setState({
+            ...this.state,
+            creating:false,
+        })
+        this.fetchMemories()
+    }
     
     render() {
-        const {memories} = this.state;
-        const {creating} = this.props;
-        var create_form = creating ? <CreateForm already_done={true}/> : ""
+        const {memories, creating} = this.state;
+        var create_form = creating ? <CreateForm onHide={()=>this.handleModalHide()} create_bubble_title="New Memory" already_done={1}/> : ""
         return ( 
             <div className="page-container">
                 {create_form}
-                <div className="add-button" onClick={this.props.showCreatingFormAction}><RiHeartAddFill/></div>
+                <div className="add-button" onClick={()=>this.setState({...this.state, creating:true})}><RiHeartAddFill/></div>
                 <h1 className="page-title">Memories</h1>
                 <div className="page-content">
                 {memories.map(memory_item=>{
@@ -66,4 +73,4 @@ class MemoryList extends Component {
     }
 }
  
-export default connect(mapState2Props, {showCreatingFormAction})(MemoryList);
+export default connect(mapState2Props, {})(MemoryList);

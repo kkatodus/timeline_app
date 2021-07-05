@@ -29,6 +29,10 @@
   padding: 20px;
 }
 
+.todo-content {
+  background-color: var(--dark-blue);
+}
+
 .memory-title {
   color: var(--neutral);
 }
