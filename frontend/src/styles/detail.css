@@ -2,8 +2,9 @@
 
 .detail-container {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 .detail-page-content {
@@ -16,17 +17,32 @@
   justify-content: start;
 }
 
+.detail-page-content input,
+.detail-page-content textarea {
+  background-color: var(--blue);
+  border-color: var(--blue);
+  border-radius: 10px;
+}
+
 .detail-title {
   position: relative;
   margin: 10px;
   color: var(--neutral);
 }
 
+.detail-title-edit {
+  height: 10%;
+  margin: 0;
+  font-size: 2rem;
+}
+
 .detail-descript {
   margin-top: 10px;
+  margin-bottom: 10px;
   padding: 5px;
   font-size: 1.5rem;
   height: 80%;
+  width: 100%;
   overflow-y: scroll;
   color: var(--neutral);
 }
@@ -34,6 +50,29 @@
 .detail-date {
   margin-top: 10px;
   color: var(--neutral);
+}
+
+.detail-footer {
+  display: flex;
+  justify-content: start;
+}
+
+.edit-button {
+  margin-left: -50%;
+  margin-top: 20px;
+  width: 120px;
+  height: 50px;
+  font-size: 2rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--dark-neutral);
+  transition: 150ms;
+}
+.edit-button:hover {
+  color: var(--neutral);
+  transition: 150ms;
 }
 
 .done-memory {

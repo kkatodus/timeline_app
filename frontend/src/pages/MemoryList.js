@@ -22,6 +22,7 @@ class MemoryList extends Component {
 
         this.fetchMemories = this.fetchMemories.bind(this)
         this.handleModalHide = this.handleModalHide.bind(this)
+       
     }
     componentDidMount(){
         this.fetchMemories()
@@ -46,14 +47,14 @@ class MemoryList extends Component {
     handleModalHide(){
         this.setState({
             ...this.state,
-            creating:false,
+            creating:false
         })
         this.fetchMemories()
+
     }
-    
     render() {
         const {memories, creating} = this.state;
-        var create_form = creating ? <CreateForm onHide={()=>this.handleModalHide()} create_bubble_title="New Memory" already_done={1}/> : ""
+        var create_form = creating ? <CreateForm onHide={()=>{this.handleModalHide()}} create_bubble_title="New Memory" already_done={1}/> : ""
         return ( 
             <div className="page-container">
                 {create_form}
@@ -63,7 +64,7 @@ class MemoryList extends Component {
                 {memories.map(memory_item=>{
                     if (memory_item.done){
                         return(
-                            <MemoryItem key={memory_item.id} {...memory_item}/>                
+                            <MemoryItem key={memory_item.id} {...memory_item} onDelete={()=>this.fetchMemories()}/>                
                         )
                     }
                 })}

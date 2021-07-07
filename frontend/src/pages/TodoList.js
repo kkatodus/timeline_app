@@ -39,6 +39,7 @@ class TodoList extends Component {
         .then(data=>this.setState({memories:data}))        
     }
     handleModalHide(){
+        console.log("hiding modal")
         this.setState({
             ...this.state,
             creating:false
@@ -59,7 +60,7 @@ class TodoList extends Component {
                 {memories.map(memory_item=>{
                     if (!memory_item.done){
                         return(
-                            <TodoItem key={memory_item.id} {...memory_item}/>                
+                            <TodoItem key={memory_item.id} {...memory_item} onDelete={()=>this.fetchMemories()}/>                
                         )
                     }
                 })}
