@@ -17,40 +17,40 @@ class LogIn extends Component {
         this.state = {
             username:"",
             password:"",
-            failed:false
+            failed:false,
+            waiting:false,
         }
         this.sendAuthDetail = this.sendAuthDetail.bind(this) 
         this.handleChange = this.handleChange.bind(this) 
     }
 
-    sendAuthDetail(){
+    async sendAuthDetail(){
         var {username, password} = this.state;
         var formdata = new FormData();
         formdata.append("username",username);
         formdata.append("password",password);
-        
+        this.setState({...this.state, waiting:true})
         var request_options = {
             method:"POST",
             body:formdata,
             redirect:"follow"
         }
-        fetch(api_base_url+"/api/auth/",request_options)
-        .then(response=>response.json())
-        .then(result=>{
-            if(!result.token){
-                var logged = false;
-                this.setState({
-                    ...this.state,
-                    failed:true
-                })
-            }else{
-                var logged = true
-            }
-            this.props.loginAction(logged, result.token)
-           
-        })
-        .catch(error=>alert(unknown_error_alert))
+        var data = await fetch(api_base_url+"/api/auth/",request_options)
+        var data_json = await data.json()
+        if(!data_json.token){
+            var logged = false;
+            this.setState({
+                ...this.state,
+                waiting:false,
+                failed:true
+            })
+        }else{
+            var logged = true 
+        }
+        this.props.loginAction(logged, data_json.token)
+          
     }
+    
     handleChange(e){
         var target_name = e.target.name;
         var target_value = e.target.value;
@@ -67,7 +67,8 @@ class LogIn extends Component {
         }
     }
     render() { 
-        var message = this.state.failed ? ("Check your password and username"):("")
+        var message = this.state.failed ? ("Check your password and username"):""
+        var message = this.state.waiting ? "Give us a second...":message
         return ( 
             <div className="background-fill login-background">
                 <div className="bubble login-bubble card-shadow">

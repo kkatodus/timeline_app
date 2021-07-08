@@ -28,7 +28,7 @@ class MemoryList extends Component {
         this.fetchMemories()
     }
 
-    fetchMemories(){
+    async fetchMemories(){
         var fetch_url = api_base_url+"api/memories/"
         var request_token = this.props.login_token;
         var request_headers = new Headers();
@@ -39,9 +39,11 @@ class MemoryList extends Component {
             headers:request_headers,
             redirect:"follow"
         }
-        fetch(fetch_url, request_options)
-        .then(data=>data.json())
-        .then(data=>this.setState({memories:data}))        
+        var data = await fetch(fetch_url, request_options)
+        var data_json = await data.json()
+        this.setState({
+            memories:data_json
+        })
     }
 
     handleModalHide(){
@@ -55,12 +57,15 @@ class MemoryList extends Component {
     render() {
         const {memories, creating} = this.state;
         var create_form = creating ? <CreateForm onHide={()=>{this.handleModalHide()}} create_bubble_title="New Memory" already_done={1}/> : ""
+        var loading_message = memories.length === 0 ?<h1>Loading...</h1>:""
+     
         return ( 
             <div className="page-container">
                 {create_form}
                 <div className="add-button" onClick={()=>this.setState({...this.state, creating:true})}><RiHeartAddFill/></div>
                 <h1 className="page-title">Memories</h1>
                 <div className="page-content">
+                {loading_message}
                 {memories.map(memory_item=>{
                     if (memory_item.done){
                         return(
