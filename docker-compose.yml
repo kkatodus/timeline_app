@@ -19,9 +19,9 @@ services:
     volumes:
       - ./backend:/backend
     ports:
-      - "8000:8000"
-    depends_on:
-      - db
+      - "8000:80"
+    # depends_on:
+    #   - db
 
   frontend:
     build:
