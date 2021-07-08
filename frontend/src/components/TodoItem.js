@@ -54,7 +54,7 @@ class TodoItem extends Component {
                     <h2 className="memory-title">{title.slice(0,40)}{title_dots}</h2>
                     <h3 className="memory-descript">{descript.slice(0,120)}{descript_dots}</h3>
                 </div>
-                <button onClick={this.deleteMemoryItem} className="delete-button" ><AiFillDelete/></button>
+                <button onClick={this.deleteMemoryItem} className="delete-button card-shadow" ><AiFillDelete/></button>
             </div>       
          );
     }

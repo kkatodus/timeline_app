@@ -6,7 +6,7 @@
 }
 
 :root {
-  --ff-primary: "Amatic SC", cursive;
+  --ff-primary: "Amatic SC", cursive, "Yomogi", cursive;
 
   --dark-blue: #2c4096;
   --blue: #6b8d97;
