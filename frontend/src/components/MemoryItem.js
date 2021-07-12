@@ -16,12 +16,14 @@ class MemoryItem extends Component {
         request_headers.append("Authorization","Token "+request_token)
         this.state = {
             request_header:request_headers,
-            redirect:""
+            redirect:"",
+            waiting_delete:false
         }
         this.deleteMemoryItem = this.deleteMemoryItem.bind(this)
     }
 
-    deleteMemoryItem(e){
+    async deleteMemoryItem(e){
+        this.setState({...this.state, waiting_delete:true})
         e.stopPropagation()
         var request_options = {
             method:"DELETE",
@@ -29,19 +31,27 @@ class MemoryItem extends Component {
             redirect:"follow"
         }
         var {id} = this.props;
-        fetch(api_base_url+"/api/memory_detail/"+id,request_options)
-        .then(response => response.text())
-        .then(response =>this.props.onDelete())
-        .catch(error => console.log("error",error))
-        
+        var data = await fetch(api_base_url+"/api/memory_detail/"+id,request_options)
+        this.props.onDelete()
+
     }
     
     render() { 
         var {title, descript, created, done, id} = this.props;
-        var {redirect} = this.state
+        var {redirect, waiting_delete} = this.state
         var title_dots = title.length > 40 ? "...":""
         var descript_dots = descript.length > 120 ? "...":"" 
         var redirect_element = redirect !== "" ? <Redirect to={this.state.redirect}/>:""
+        if (waiting_delete){
+            return(
+                <div className="memory-item">
+                    <div className="memory-content card-shadow">
+                        <h1>Deleting...</h1>
+                    </div>
+                </div>
+            )
+        }
+
         return ( 
             <div className="memory-item">
                 {redirect_element}
