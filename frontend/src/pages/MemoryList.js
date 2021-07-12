@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { mapState2Props } from './Resource';
+import { mapState2Props,api_base_url } from './Resource';
 
 import {RiHeartAddFill} from "react-icons/ri"
 import MemoryItem from '../components/MemoryItem';
 import CreateForm from './CreateForm';
-import { showCreatingFormAction } from '../actions';
+import { logoutAction } from '../actions';
 import "../styles/memory.css"
 import "../styles/base.css"
 
-var api_base_url = "http://localhost:8000/"
 
 class MemoryList extends Component {
     constructor(props){
@@ -29,11 +28,11 @@ class MemoryList extends Component {
     }
 
     async fetchMemories(){
-        var fetch_url = api_base_url+"api/memories/"
+
+        var fetch_url = api_base_url+"/api/memories/"
         var request_token = this.props.login_token;
         var request_headers = new Headers();
         request_headers.append("Authorization","Token "+request_token)
-
         var request_options = {
             method:"GET",
             headers:request_headers,
@@ -44,6 +43,8 @@ class MemoryList extends Component {
         this.setState({
             memories:data_json
         })
+
+        
     }
 
     handleModalHide(){
@@ -56,6 +57,7 @@ class MemoryList extends Component {
     }
     render() {
         const {memories, creating} = this.state;
+        console.log(memories)
         var create_form = creating ? <CreateForm onHide={()=>{this.handleModalHide()}} create_bubble_title="New Memory" already_done={1}/> : ""
         var loading_message = memories.length === 0 ?<h1>Loading...</h1>:""
      
@@ -79,4 +81,4 @@ class MemoryList extends Component {
     }
 }
  
-export default connect(mapState2Props, {})(MemoryList);
+export default connect(mapState2Props, {logoutAction})(MemoryList);
